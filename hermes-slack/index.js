@@ -38,7 +38,6 @@ function plugin(el){
         var mention = new RegExp("<@" + user.id + ">: ", 'ig');
         if(message.text.search(mention) > -1){
           message.text = message.text.replace(mention, '');
-          console.log(message.text);
           self.emit('mention', message.text, message);
         } else {
           self.emit('message', message);
