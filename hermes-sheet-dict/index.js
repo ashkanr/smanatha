@@ -20,7 +20,7 @@ module.exports = function(el){
       });
     });
 
-    robot.on('mention', /get (.+)/i, function(res){
+    robot.on('mention', /get (.{2})/i, function(res){
       if(!Data){
         robot.say('Loading...', res.context);
       } else {
