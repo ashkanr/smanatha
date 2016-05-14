@@ -66,8 +66,15 @@ var search = function(term){
 
 var getData = function(fn){
   sheets(function(res){
-    Data = res;
+    Data = validateData(res);
     console.log('Data, retrieved!');
     if(fn) fn();
+  });
+};
+
+var validateData = function(data){
+  return _.filter(data, function(item){
+    var col = item.col === 2 ? 1 : 2;
+    return _.find(data, {col: col, row: item.row});
   });
 };
