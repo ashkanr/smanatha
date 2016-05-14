@@ -42,3 +42,6 @@ jspm_packages
 
 # Tern files
 .tern-port
+
+# Google creds
+google-generated-creds.json
