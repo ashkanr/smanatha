@@ -7,8 +7,14 @@ module.exports = function(el){
 
   return function(robot){
     robot.help('hello', 'Greetings!');
-    robot.help('get <abbreviation>', 'Translate an abbreviation');
     robot.help('update', 'Update abbreviation data');
+    robot.help(['what is <abbreviation>',
+                'whatis <abbreviation>',
+                'whats <abbreviation>',
+                'wtf is <abbreviation>',
+                'wtfis <abbreviation>',
+                'wtf <abbreviation>'],
+               'Translate an abbreviation');
 
     robot.on('mention', /hello/i, function(res){
       robot.say('Hi, nice to meet you', res.context);
@@ -20,7 +26,11 @@ module.exports = function(el){
       });
     });
 
-    robot.on('mention', /get (.{2})/i, function(res){
+    // TODO: Better regex
+    robot.on('mention', /what ?i?s|wtf ?i?s? (.+)/i, function(){
+      if(res[1].length <= 1){
+        robot.say('Invalid query', res.context);
+      }
       if(!Data){
         robot.say('Loading...', res.context);
       } else {
