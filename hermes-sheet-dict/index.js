@@ -2,8 +2,8 @@ var sheets = require('./sheet');
 var _ = require('lodash');
 
 var Data = null;
-module.exports = function(el){
-  getData();
+module.exports = function(opts){
+  getData(opts.docid);
 
   return function(robot){
     robot.help('hello', 'Greetings!');
@@ -21,7 +21,7 @@ module.exports = function(el){
     });
 
     robot.on('mention', /update/i, function(res){
-      getData(function(){
+      getData(opts.docid, function(){
         robot.say("I've updated my data!", res.context);
       });
     });
@@ -75,8 +75,8 @@ var search = function(term){
 
 };
 
-var getData = function(fn){
-  sheets(function(res){
+var getData = function(docid, fn){
+  sheets(docid, function(res){
     Data = validateData(res);
     console.log('Data, retrieved!');
     if(fn) fn();

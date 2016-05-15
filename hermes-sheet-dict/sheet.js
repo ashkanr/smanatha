@@ -1,10 +1,10 @@
 var GoogleSpreadSheet = require('google-spreadsheet');
 var Promise = require('promise');
 
-var doc = new GoogleSpreadSheet('10GK3lKLg4WxsP19uX1DK_Qfov0uYDB1kRqV5Wdi8hKY');
+var doc, data;
 
-var data = {};
-module.exports = function(fn){
+module.exports = function(docid, fn){
+  doc = new GoogleSpreadSheet(docid);
   setAuth()
     .then(getInfoAndWorksheets)
     .then(getData)
