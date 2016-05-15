@@ -20,13 +20,14 @@ function plugin(opts){
       }
     };
 
-    var rtm = new RtmClient(token(), {
+    var token = token();
+    var rtm = new RtmClient(token, {
       logLevel: 'info', // check this out for more on logger: https://github.com/winstonjs/winston
       dataStore: new MemoryDataStore({}) // pass a new MemoryDataStore instance to cache information
     });
 
     rtm.on(CLIENT_EVENTS.RTM.AUTHENTICATED, function (rtmStartData) {
-      console.log('Logged in as ${rtmStartData.self.name} of team ${rtmStartData.team.name}, but not yet connected to a channel');
+      console.log(`Logged in as ${rtmStartData.self.name} of team ${rtmStartData.team.name}`);
     });
 
 
