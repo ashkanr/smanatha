@@ -3,17 +3,15 @@ var Promise = require('promise');
 
 var doc, data;
 
-module.exports = function(docid, fn){
+module.exports = function(creds, docid, fn){
   doc = new GoogleSpreadSheet(docid);
-  setAuth()
+  setAuth(creds)
     .then(getInfoAndWorksheets)
     .then(getData)
     .then(fn);
 };
 
-var setAuth = function(){
-  var creds = require('./google-generated-creds.json');
-
+var setAuth = function(creds){
   return new Promise(function(fullfill, reject){
     doc.useServiceAccountAuth(creds, function(err, res){
       if (err) reject(err);

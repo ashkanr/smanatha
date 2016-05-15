@@ -3,7 +3,7 @@ var _ = require('lodash');
 
 var Data = null;
 module.exports = function(opts){
-  getData(opts.docid);
+  getData(opts.creds, opts.docid);
 
   return function(robot){
     robot.help('hello', 'Greetings!');
@@ -21,7 +21,7 @@ module.exports = function(opts){
     });
 
     robot.on('mention', /update/i, function(res){
-      getData(opts.docid, function(){
+      getData(opts.creds, opts.docid, function(){
         robot.say("I've updated my data!", res.context);
       });
     });
@@ -75,8 +75,8 @@ var search = function(term){
 
 };
 
-var getData = function(docid, fn){
-  sheets(docid, function(res){
+var getData = function(creds, docid, fn){
+  sheets(creds, docid, function(res){
     Data = validateData(res);
     console.log('Data, retrieved!');
     if(fn) fn();
