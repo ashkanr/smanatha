@@ -55,7 +55,7 @@ function handleRequest(request, response){
 
 var app = express();
 app.get('/', function(req, res){
-  res.sendFile(path.join(__dirname + '/site/index.html'));
+  res.sendFile(path.join(__dirname + '/index.html'));
   var queryData = url.parse(req.url, true).query;
 
   if(!queryData.code){
@@ -75,5 +75,5 @@ app.get('/', function(req, res){
 
 var PORT = process.env.PORT || 8080;
 app.listen(PORT);
-app.use(express.static('site'));
+app.use(express.static('public'));
 console.log(`Server is listening on http://localhost:${PORT}`);
