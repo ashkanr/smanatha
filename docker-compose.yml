@@ -11,3 +11,4 @@ redis:
   image: redis 
   volumes:
     - /var/data/samantha:/data
+  command: redis-server --appendonly yes
