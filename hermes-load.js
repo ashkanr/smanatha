@@ -1,7 +1,4 @@
-var chalk = require('chalk');
 var Hermes = require('hermes');
-var indent = require('indent');
-var format = require('util').format;
 var utils = require('./utils');
 var _ = require('lodash');
 

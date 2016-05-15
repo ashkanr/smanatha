@@ -1,7 +1,15 @@
+var Promise = require('promise');
+var request = require('request');
+var indent = require('indent');
+var chalk = require('chalk');
+var format = require('util').format;
+var resolve = require('path').resolve;
+
 module.exports = {
   req: req,
   log: log,
-  fatal: fatal
+  fatal: fatal,
+  getToken: getToken
 };
 
 function req(str){
@@ -24,3 +32,20 @@ function fatal(msg){
   console.error(chalk.italic.red('   Hermes'), chalk.gray('·'), msg);
   process.exit(1);
 }
+
+function getToken(id, secret, code){
+  var form = {
+    'client_id': id,
+    'client_secret': secret,
+    'code': code
+  };
+
+  return new Promise(function(fullfill, reject){
+    request.post(
+      {url:'https://slack.com/api/oauth.access', form: form},
+      function(err, httpResponse, body){
+        if(err) reject(err);
+        fullfill(JSON.parse(body));
+      });
+  });
+};

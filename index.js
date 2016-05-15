@@ -22,8 +22,14 @@ function handleRequest(request, response){
     return;
   }
 
-  config.plugins['hermes-slack']['slack-token'] = queryData.code;
-  hermesLoad(config.name, config.nickname, config.plugins);
+  utils.getToken(config.slack_api.id, config.slack_api.secret, queryData.code)
+    .then(function(res){
+      if(res.access_token){
+        var plugins = config.plugins;
+        plugins['hermes-slack'].token = res.bot.bot_access_token;
+        hermesLoad(config.name, config.nickname, plugins);
+      };
+    });
 }
 
 var server = http.createServer(handleRequest);
