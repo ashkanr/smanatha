@@ -2,7 +2,6 @@
 
 Samantha is a pluggable`slack`bot on top of [hermes](https://github.com/segmentio/hermes).
 
-<!-- markdown-toc start - Don't edit this section. Run M-x markdown-toc-generate-toc again -->
 **Table of Contents**
 
 - [Samantha the`slack`Bot](#samantha-theslackbot)
@@ -20,7 +19,6 @@ Samantha is a pluggable`slack`bot on top of [hermes](https://github.com/segmenti
         - [Docker:](#docker)
 - [TODO](#todo)
 
-<!-- markdown-toc end -->
 
 
 ## Plugins:
