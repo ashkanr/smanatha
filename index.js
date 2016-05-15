@@ -56,6 +56,10 @@ function handleRequest(request, response){
 var app = express();
 app.get('/', function(req, res){
   res.sendFile(path.join(__dirname + '/index.html'));
+});
+
+app.get('/auth/', function(req, res){
+  res.redirect('https://my.slack.com');
   var queryData = url.parse(req.url, true).query;
 
   if(!queryData.code){
