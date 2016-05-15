@@ -141,6 +141,11 @@ this command:
 
     $ npm start
 
+#### URLs
+
+  - **/:** The root page which contains some data about `Samantha` and the button.
+  - **/auth/:** Which retrieves token and redirects user to slack channel.
+
 ### Slack button
 
 To get an slack button you can go to [this page](https://api.slack.com/docs/slack-button) and use the generated code.
