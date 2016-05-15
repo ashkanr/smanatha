@@ -12,10 +12,10 @@ function plugin(opts){
 
     var user = {id: null, name: null, nickname: null};
     var token = function(){
-      if(opts['slack-token']){
-        return opts['slack-token'];
+      if(opts['token']){
+        return opts['token'];
       } else {
-        console.log('Please define slack-token in hermes.json');
+        console.log('Please define token in hermes.json');
         process.exit(1);
       }
     };
@@ -24,6 +24,11 @@ function plugin(opts){
       logLevel: 'info', // check this out for more on logger: https://github.com/winstonjs/winston
       dataStore: new MemoryDataStore({}) // pass a new MemoryDataStore instance to cache information
     });
+
+    rtm.on(CLIENT_EVENTS.RTM.AUTHENTICATED, function (rtmStartData) {
+      console.log('Logged in as ${rtmStartData.self.name} of team ${rtmStartData.team.name}, but not yet connected to a channel');
+    });
+
 
     robot.connect = function(){
       var self = this;
