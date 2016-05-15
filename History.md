@@ -1,3 +1,12 @@
+
+1.n.1 / 2016-05-15
+==================
+
+refactors
+---------
+
+  * Redirect user to slack after authentication
+
 1.0.0 / 2016-05-15
 ==================
 
