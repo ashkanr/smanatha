@@ -1,5 +1,6 @@
-var http = require('http');
+var express = require('express');
 var url = require('url');
+var path = require('path');
 var resolve = require('path').resolve;
 var exists = require('fs').existsSync;
 var hermesLoad = require('hermes-load');
@@ -51,9 +52,28 @@ function handleRequest(request, response){
     });
 }
 
-var server = http.createServer(handleRequest);
-var PORT = process.env.PORT || 8080;
 
-server.listen(PORT, function(){
-  console.log("Server listening on: http://localhost:%s", PORT);
+var app = express();
+app.get('/', function(req, res){
+  res.sendFile(path.join(__dirname + '/site/index.html'));
+  var queryData = url.parse(req.url, true).query;
+
+  if(!queryData.code){
+    return;
+  }
+
+  utils.getToken(config.slack_api.id, config.slack_api.secret, queryData.code)
+    .then(function(res){
+      if(res.bot){
+        token = res.bot.bot_access_token;
+        utils.setTeam(res.team_id, token)
+          .then(robot(token));
+      };
+    });
+
 });
+
+var PORT = process.env.PORT || 8080;
+app.listen(PORT);
+app.use(express.static('site'));
+console.log(`Server is listening on http://localhost:${PORT}`);

@@ -11,6 +11,7 @@
   "license": "ISC",
   "dependencies": {
     "@slack/client": "^2.0.4",
+    "express": "^4.13.4",
     "google-spreadsheet": "^2.0.3",
     "hermes": "^0.4.4",
     "lodash": "^4.12.0",
