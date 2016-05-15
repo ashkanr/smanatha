@@ -150,7 +150,7 @@ Make sure to just put `bot` in the scope variable.
 
 It is also possible to execute robot as it self (for test or single target):
 
-    $ ./start
+    $ npm run robot
     
 ### Docker:
 
