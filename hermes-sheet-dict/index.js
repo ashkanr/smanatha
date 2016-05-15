@@ -27,7 +27,7 @@ module.exports = function(el){
     });
 
     // TODO: Better regex
-    robot.on('mention', /what ?i?s|wtf ?i?s? (.+)/i, function(){
+    robot.on('mention', /what ?i?s|wtf ?i?s? (.+)/i, function(res){
       if(res[1].length <= 1){
         robot.say('Invalid query', res.context);
       }
