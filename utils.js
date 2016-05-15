@@ -57,7 +57,7 @@ module.exports = {
   },
 
   setTeam: function(teamid, token){
-    return this.dbset(`TEAM_{teamid}`, token);
+    return this.dbset(`TEAM_${teamid}`, token);
   },
 
   dbset: function(key, value){
