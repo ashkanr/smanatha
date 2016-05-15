@@ -3,14 +3,15 @@ var url = require('url');
 var resolve = require('path').resolve;
 var exists = require('fs').existsSync;
 var hermesLoad = require('hermes-load');
+var utils = require('./utils');
 
 var config = resolve('hermes.json');
-if (!exists(config)) fatal('Could not find configuration file at %s', config);
+if (!exists(config)) utils.fatal('Could not find configuration file at %s', config);
 
 try {
   var config = require(config);
 } catch (e) {
-  fatal(e);
+  utils.fatal(e);
 }
 
 function handleRequest(request, response){
