@@ -6,8 +6,7 @@ var format = require('util').format;
 var resolve = require('path').resolve;
 
 var redis_host = process.env.REDIS_HOST || 'localhost';
-var redis_port = process.env.REDIS_PORT || '6379';
-var redis = require('redis').createClient(redis_port, redis_host);
+var redis = require('redis').createClient(6379, redis_host);
 
 module.exports = {
   req: function(str){
