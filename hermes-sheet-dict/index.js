@@ -60,6 +60,7 @@ var search = function(term){
 
   var matches = _.filter(Data, function(item){
     var regex = new RegExp(term, 'ig');
+    if(!item.value) return false;
     return (item.col === 1) && (item.value.search(regex) > -1);
   });
 
