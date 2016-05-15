@@ -6,15 +6,16 @@ var MemoryDataStore = SlackClient.MemoryDataStore;
 
 module.exports = plugin;
 
-function plugin(el){
+function plugin(opts){
   return function(robot){
+    console.log(opts);
 
     var user = {id: null, name: null, nickname: null};
     var token = function(){
-      if(process.env.SLACK_TOKEN){
-        return process.env.SLACK_TOKEN;
+      if(opts['slack-token']){
+        return opts['slack-token'];
       } else {
-        console.log('Please define SLACK_TOKEN as environment variable');
+        console.log('Please define slack-token in hermes.json');
         process.exit(1);
       }
     };
