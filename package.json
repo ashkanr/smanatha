@@ -13,6 +13,7 @@
     "google-spreadsheet": "^2.0.3",
     "hermes": "^0.4.4",
     "lodash": "^4.12.0",
-    "promise": "^7.1.1"
+    "promise": "^7.1.1",
+    "redis": "^2.6.0-2"
   }
 }
