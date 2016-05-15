@@ -44,4 +44,4 @@ jspm_packages
 .tern-port
 
 # Google creds
-google-generated-creds.json
+hermes.json
