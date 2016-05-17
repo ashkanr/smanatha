@@ -3,6 +3,7 @@ var RtmClient = SlackClient.RtmClient;
 var CLIENT_EVENTS = SlackClient.CLIENT_EVENTS;
 var RTM_EVENTS = SlackClient.RTM_EVENTS;
 var MemoryDataStore = SlackClient.MemoryDataStore;
+var _ = require('lodash')
 
 module.exports = plugin;
 
@@ -43,6 +44,7 @@ function plugin(opts){
 
       rtm.on(RTM_EVENTS.MESSAGE, function(message){
         var mention = new RegExp("<@" + user.id + ">: ", 'ig');
+        if(!_.isString(message.text)){return;}
         if(message.text.search(mention) > -1){
           message.text = message.text.replace(mention, '');
           self.emit('mention', message.text, message);

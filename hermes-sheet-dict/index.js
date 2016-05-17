@@ -28,6 +28,7 @@ module.exports = function(opts){
 
     // TODO: Better regex
     robot.on('mention', /what ?i?s|wtf ?i?s? (.+)/i, function(res){
+      if(!_.isString(res[1])){return;};
       if(res[1].length <= 1){
         robot.say('Invalid query', res.context);
       }
