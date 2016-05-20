@@ -35,8 +35,7 @@ var robot = function(token){
 /**
  * Restore all registered robots from their keys in redis database
  */
-restore();
-var restore = function(){
+var restore = (function(){
   utils.getTeams()
     .then(function(teams){
       teams.forEach(function(team){
@@ -44,7 +43,7 @@ var restore = function(){
           .then(robot);
       });
     });
-};
+})();
 
 /** Register the express app */
 var app = express();

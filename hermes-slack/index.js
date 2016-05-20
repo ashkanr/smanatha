@@ -3,25 +3,37 @@ var RtmClient = SlackClient.RtmClient;
 var CLIENT_EVENTS = SlackClient.CLIENT_EVENTS;
 var RTM_EVENTS = SlackClient.RTM_EVENTS;
 var MemoryDataStore = SlackClient.MemoryDataStore;
-var _ = require('lodash')
+var _ = require('lodash');
 
 module.exports = plugin;
 
+/**
+ * Create a Hermes plugin
+ * @param {Object} opts Contains given named arguments list
+ * @returns {Object} Hermes plugin
+ */
 function plugin(opts){
+  /**
+   * Register plugin's functionality on a given robot
+   * @param {Object} robot Hermes robot
+   * @returns {Object} Hermes robot
+   */
   return function(robot){
-    console.log(opts);
 
     var user = {id: null, name: null, nickname: null};
-    var token = function(){
+    /**
+     * Check for token in opts. If it doesn't exists, error and exit
+     * @returns {String} token
+     */
+    var token = (function(){
       if(opts['token']){
         return opts['token'];
       } else {
         console.log('Please define token in hermes.json');
         process.exit(1);
       }
-    };
+    })();
 
-    var token = token();
     var rtm = new RtmClient(token, {
       logLevel: 'info', // check this out for more on logger: https://github.com/winstonjs/winston
       dataStore: new MemoryDataStore({}) // pass a new MemoryDataStore instance to cache information
@@ -31,7 +43,9 @@ function plugin(opts){
       console.log(`Logged in as ${rtmStartData.self.name} of team ${rtmStartData.team.name}`);
     });
 
-
+    /**
+     * Connect to Slack's RTM whenever robot issued connect event.
+     */
     robot.connect = function(){
       var self = this;
 
@@ -54,12 +68,23 @@ function plugin(opts){
       });
     };
 
+    /**
+     * Make robot able to speak
+     * @param {String} msg
+     * @param {Object} ctx The target channel context
+     */
     robot.say = function(msg, ctx){
       rtm.sendMessage(msg, ctx.channel, function(){
         console.log('Message sent');
       });
     };
 
+    /**
+     * Reply to someone with id
+     * @param {String} id
+     * @param {String} msg
+     * @param {Object} ctx The message target context
+     */
     robot.replay = function(id, msg, ctx){
       var user = robot.user(id);
       var mention = robot.mention(user.nickname);
