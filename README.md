@@ -168,5 +168,5 @@ To run webserver as a docker container, you can use docker compose:
   - Move `redis` server to a standalone `hermes` plugin over robot (if possible)
   - Use `redis` to save sheet data
   - Support direct message
-  - Document the code
+  - Document the code **DONE**
   - Write tests
