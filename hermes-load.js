@@ -3,7 +3,13 @@ var utils = require('./utils');
 var _ = require('lodash');
 
 module.exports = load;
-
+/**
+ * Create a new hermes robot with given arguments
+ * @param {String} name
+ * @param {String} nickname
+ * @param {Object} plugins
+ * @param {String} template
+ */
 function load(name, nickname, plugins, template){
   var hermes = Hermes();
 
