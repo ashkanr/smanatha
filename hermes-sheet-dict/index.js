@@ -2,9 +2,18 @@ var sheets = require('./sheet');
 var _ = require('lodash');
 
 var Data = null;
+/**
+ * Return a Hermes plugin
+ * @param {Object} opts Hermes options.
+ * @returns {Object} Hermes plugin.
+ */
 module.exports = function(opts){
   getData(opts.creds, opts.docid);
 
+  /**
+   * Register plugin functionality on a given robot.
+   * @param {Object} robot
+   */
   return function(robot){
     robot.help('hello', 'Greetings!');
     robot.help('update', 'Update abbreviation data');
@@ -47,6 +56,11 @@ module.exports = function(opts){
   };
 };
 
+/**
+ * Format a list to a printable message on Slack channel.
+ * @param {Array} list
+ * @returns {String}
+ */
 var format = function(list){
   message = '';
   _.forEach(list, function(item){
@@ -56,6 +70,11 @@ var format = function(list){
   return message;
 };
 
+/**
+ * Search for a given term in data sheet.
+ * @param {String} term
+ * @returns {Array}
+ */
 var search = function(term){
   term = _.escapeRegExp(_.unescape(term));
 
@@ -76,6 +95,12 @@ var search = function(term){
 
 };
 
+/**
+ * Get data from given sheet.
+ * @param {Object} creds Google generated credentials
+ * @param {String} docid Document id
+ * @param {Function} fn Callback function
+ */
 var getData = function(creds, docid, fn){
   sheets(creds, docid, function(res){
     Data = validateData(res);
@@ -84,6 +109,11 @@ var getData = function(creds, docid, fn){
   });
 };
 
+/**
+ * Make sure for any given value on column 1 exist data in column 2
+ * @param {Object} data
+ * @returns {Object}
+ */
 var validateData = function(data){
   return _.filter(data, function(item){
     var col = item.col === 2 ? 1 : 2;

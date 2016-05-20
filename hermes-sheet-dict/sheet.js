@@ -1,3 +1,9 @@
+/**
+ * @fileOverview Get access to a given google spreadsheet
+ * @name sheet.js
+ * @author 5hah.in
+ * @license 
+ */
 var GoogleSpreadSheet = require('google-spreadsheet');
 var Promise = require('promise');
 
@@ -11,6 +17,11 @@ module.exports = function(creds, docid, fn){
     .then(fn);
 };
 
+/**
+ * Set authentication context
+ * @param {Object} creds Google generated credentials
+ * @returns {Promise} 
+ */
 var setAuth = function(creds){
   return new Promise(function(fullfill, reject){
     doc.useServiceAccountAuth(creds, function(err, res){
@@ -20,6 +31,11 @@ var setAuth = function(creds){
   });
 };
 
+
+/**
+ * Get info from a given sheet
+ * @returns {Promise} 
+ */
 var getInfoAndWorksheets = function(){
   return new Promise(function(fullfill, reject){
     doc.getInfo(function(err, res){
@@ -29,6 +45,11 @@ var getInfoAndWorksheets = function(){
   });
 };
 
+/**
+ * Get dictionary data from first 2 column of a given sheet
+ * @param {Object} sheet
+ * @returns {Promise}
+ */
 var getData = function(sheet){
   return new Promise(function(fullfill, reject){
     var query = {'max-col': 2};
@@ -39,6 +60,11 @@ var getData = function(sheet){
   });
 };
 
+/**
+ * Create a usable Object from data.
+ * @param {Array} data
+ * @returns {Array}
+ */
 var cleanup = function(data){
   return data.map(function(cell){
     return {
