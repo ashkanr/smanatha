@@ -20,7 +20,7 @@ module.exports = {
     try {
       return require(str);
     } catch (e) {
-      fatal(e);
+      this.fatal(e);
     }
   },
 
@@ -40,8 +40,7 @@ module.exports = {
   fatal: function(msg){
     if (msg instanceof Error) msg = msg.message + '\n\n' + indent(msg.stack, 12);
     msg = format.apply(null, arguments);
-    console.error(chalk.italic.red('   Samantha'), chalk.gray('·'), msg);
-    process.exit(1);
+    throw new Error(`${chalk.italic.red('   Samantha')} ${chalk.gray('.')} ${msg}`);
   },
 
   /**
