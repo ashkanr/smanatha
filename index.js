@@ -10,7 +10,7 @@ var url = require('url');
 var path = require('path');
 var resolve = require('path').resolve;
 var exists = require('fs').existsSync;
-var hermesLoad = require('hermes-load');
+var hermesLoad = require('./hermes-load');
 var utils = require('./utils');
 
 var config = resolve('hermes.json');
@@ -74,8 +74,8 @@ app.get('/auth/', function(req, res){
 });
 
 var PORT = process.env.PORT || 8080;
-app.listen(PORT, function(){
+var server = app.listen(PORT, function(){
   console.log(`Server is listening on http://localhost:${PORT}`);
 });
 
-module.exports = app;
+module.exports = server;
