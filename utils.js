@@ -48,7 +48,7 @@ module.exports = {
    * @param {String} id Slack App's client_id
    * @param {String} secret Slack App's client_secret
    * @param {String} code The temporary access code
-   * @returns {String} The access token
+   * @returns {Promise} The access token
    */
   getToken: function(id, secret, code){
     var form = {
