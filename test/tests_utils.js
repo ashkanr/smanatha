@@ -2,6 +2,7 @@ var chai = require('chai');
 var sinon = require('sinon');
 var utils = require('../utils');
 var chalk = require('chalk');
+var request = require('request');
 var expect = chai.expect;
 
 chai.should();
@@ -67,10 +68,42 @@ describe('utils', function(){
       fn().should.be.true;
     });
 
-    it('should create a post request to Slack api', function(){
-      sinon.spy(request, 'post');
+    describe('getToken requests', function(){
+      beforeEach(function(){
+        sinon.spy(request, 'post');
+      });
+
+      afterEach(function(){
+        request.post.restore();
+      });
+
+      it('should create a post request to Slack api', function(){
+        utils.getToken().then();
+        request.post.called.should.be.true;
+
+        var spy = request.post.getCall(0);
+        expect(spy.args[0].url).to.be.equal('https://slack.com/api/oauth.access');
+      });
+
+      it('should provide client_id, client_secret, code in request', function(){
+        var data = {
+          'client_id': 'fakeid',
+          'client_secret': 'fakesecret',
+          'code': 'fakecode'
+        };
+
+        utils.getToken(data.client_id, data.client_secret, data.code).then();
+
+        var spy = request.post.getCall(0);
+        var form = spy.args[0].form;
+
+        expect(form.client_id).to.be.equal(data.client_id);
+        expect(form.client_secret).to.be.equal(data.client_secret);
+        expect(form.code).to.be.equal(data.code);
+      });
 
     });
+
   });
 
   describe('getTeams', function(){
