@@ -47,6 +47,8 @@ var restore = (function(){
 
 /** Register the express app */
 var app = express();
+app.use(express.static('public'));
+
 app.get('/',
         function(req, res){
   res.sendFile(path.join(__dirname + '/index.html'));
@@ -72,6 +74,8 @@ app.get('/auth/', function(req, res){
 });
 
 var PORT = process.env.PORT || 8080;
-app.listen(PORT);
-app.use(express.static('public'));
-console.log(`Server is listening on http://localhost:${PORT}`);
+app.listen(PORT, function(){
+  console.log(`Server is listening on http://localhost:${PORT}`);
+});
+
+module.exports = app;
