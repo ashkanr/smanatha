@@ -6,7 +6,8 @@
   "scripts": {
     "start": "NODE_PATH=. node index.js",
     "robot": "NODE_PATH=. node_modules/.bin/hermes",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "mocha",
+    "cov": "istanbul cover _mocha"
   },
   "author": "",
   "license": "ISC",
@@ -22,6 +23,7 @@
   },
   "devDependencies": {
     "chai": "^3.5.0",
+    "istanbul": "^0.4.3",
     "mocha": "^2.4.5",
     "sinon": "^1.17.4"
   }

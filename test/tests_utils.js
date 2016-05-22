@@ -1,9 +1,13 @@
 var chai = require('chai');
 var sinon = require('sinon');
-var utils = require('../utils');
 var chalk = require('chalk');
 var request = require('request');
+var Promise = require('promise');
+var utils = require('../utils');
 var expect = chai.expect;
+
+var redis = require('redis');
+var redis_client = redis.createClient(6379, 'localhost');
 
 chai.should();
 
@@ -61,7 +65,6 @@ describe('utils', function(){
 
     it('should return a promise', function(){
       var fn = function(){
-        var Promise = require('promise');
         return utils.getToken() instanceof Promise;
       };
 
@@ -110,24 +113,63 @@ describe('utils', function(){
     it('should be a function', function(){
       utils.getTeams.should.be.a('function');
     });
+
+    it('should return a promise', function(){
+      var fn = function(){
+        return utils.getTeams() instanceof Promise;
+      };
+
+      fn().should.be.true;
+    });
+
+    describe('getTeams redis', function(){
+      // TODO
+    });
   });
 
   describe('setTeam', function(){
     it('should be a function', function(){
       utils.setTeam.should.be.a('function');
     });
+
+    it('should return a promise', function(){
+      var fn = function(){
+        return utils.setTeam() instanceof Promise;
+      };
+
+      fn().should.be.true;
+    });
+
   });
 
   describe('dbset', function(){
     it('should be a function', function(){
       utils.dbset.should.be.a('function');
     });
+
+    it('should return a promise', function(){
+      var fn = function(){
+        return utils.dbset() instanceof Promise;
+      };
+
+      fn().should.be.true;
+    });
+
   });
 
   describe('dbget', function(){
     it('should be a function', function(){
       utils.dbget.should.be.a('function');
     });
+
+    it('should return a promise', function(){
+      var fn = function(){
+        return utils.dbget() instanceof Promise;
+      };
+
+      fn().should.be.true;
+    });
+
   });
 
 });
