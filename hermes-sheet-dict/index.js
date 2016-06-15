@@ -36,15 +36,16 @@ module.exports = function(opts){
     });
 
     // TODO: Better regex
-    robot.on('mention', /what ?i?s|wtf ?i?s? (.+)/i, function(res){
-      if(!_.isString(res[1])){return;};
-      if(res[1].length <= 1){
+    robot.on('mention', /(what ?i?s?|wtf ?i?s?) (.+)/i, function(res){
+      var query = res[2]
+      if(!_.isString(query)){return;};
+      if(query.length <= 1){
         robot.say('Invalid query', res.context);
       }
       if(!Data){
         robot.say('Loading...', res.context);
       } else {
-        results = search(res[1]);
+        results = search(query);
         if(!results){
           robot.say("No match found!", res.context);
         } else {
