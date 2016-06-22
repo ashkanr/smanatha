@@ -35,9 +35,9 @@ module.exports = function(opts){
       });
     });
 
-    // TODO: Better regex
     robot.on('mention', /(what ?i?s?|wtf ?i?s?) (.+)/i, function(res){
-      var query = res[2]
+      // Remove punctuation marks from the string.
+      var query = res[2].replace(/[^\w\s]/gi, '')
       if(!_.isString(query)){return;};
       if(query.length <= 1){
         robot.say('Invalid query', res.context);
